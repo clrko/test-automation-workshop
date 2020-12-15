@@ -1,4 +1,4 @@
-import { getDisplayName } from './Wilder';
+import { getDisplayName, TrainingType } from './Wilder';
 
 describe('getDisplayName', () => {
   describe('when not passed city', () => {
@@ -25,6 +25,19 @@ describe('getDisplayName', () => {
           '[SXB] Lucie Laforêt'
         );
       });
+    });
+  });
+
+  describe('when passed WORK_AND_STUDY as training type', () => {
+    it('returns WnS label and full name', () => {
+      expect(
+        getDisplayName(
+          'Lucie',
+          'Laforêt',
+          undefined,
+          TrainingType.WORK_AND_STUDY
+        )
+      ).toEqual('[? - WnS] Lucie Laforêt');
     });
   });
 });

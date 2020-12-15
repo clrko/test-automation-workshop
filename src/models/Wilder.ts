@@ -23,7 +23,11 @@ export const getDisplayName = (
   city = DEFAULT_CITY,
   trainingType = DEFAULT_TRAINING_TYPE
 ): string => {
-  return `[${cityCodes[city] || city || '?'}] ${firstName} ${lastName}`;
+  const displayCity = cityCodes[city] || city || '?';
+  return `[${(trainingType === TrainingType.WORK_AND_STUDY
+    ? [displayCity, 'WnS']
+    : [displayCity]
+  ).join(' - ')}] ${firstName} ${lastName}`;
 };
 
 @Entity()
