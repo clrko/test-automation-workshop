@@ -22,6 +22,9 @@ export const getDisplayName = (
   city = DEFAULT_CITY,
   trainingType = DEFAULT_TRAINING_TYPE
 ): string => {
+  if (trainingType === TrainingType.WORK_AND_STUDY) {
+    return `[${cityCodes[city] || city || '?'} - WnS] ${firstName} ${lastName}`;
+  }
   return `[${cityCodes[city] || city || '?'}] ${firstName} ${lastName}`;
 };
 
