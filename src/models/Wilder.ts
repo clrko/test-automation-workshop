@@ -6,6 +6,7 @@ import {
   BeforeInsert,
 } from 'typeorm';
 import { ObjectType, Field, ID, registerEnumType } from 'type-graphql';
+import { cityCodes } from './cityCodes';
 
 export const DEFAULT_CITY = '';
 export enum TrainingType {
@@ -21,7 +22,7 @@ export const getDisplayName = (
   city = DEFAULT_CITY,
   trainingType = DEFAULT_TRAINING_TYPE
 ): string => {
-  return `[${city || '?'}] ${firstName} ${lastName}`;
+  return `[${cityCodes[city] || city || '?'}] ${firstName} ${lastName}`;
 };
 
 @Entity()
