@@ -54,5 +54,42 @@ describe('Apollo server', () => {
     });
   });
 
-  describe('query wilders', () => {});
+  describe('query wilders', () => {
+    it('returns all wilders', async () => {
+      const wilder1 = Wilder.create({
+        firstName: 'Laure',
+        lastName: 'Pinson',
+      });
+      await wilder1.save();
+      const wilder2 = Wilder.create({
+        firstName: 'Pierre',
+        lastName: 'Corbeau',
+      });
+      await wilder2.save();
+
+      const response = await query({
+        query: `
+        {
+          wilders {
+            firstName
+            lastName
+          }
+        }
+      `,
+      });
+
+      expect(response.data).toEqual({
+        wilders: [
+          {
+            firstName: 'Laure',
+            lastName: 'Pinson',
+          },
+          {
+            firstName: 'Pierre',
+            lastName: 'Corbeau',
+          },
+        ],
+      });
+    });
+  });
 });
