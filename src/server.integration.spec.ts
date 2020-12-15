@@ -54,5 +54,25 @@ describe('Apollo server', () => {
     });
   });
 
-  describe('query wilders', () => {});
+  describe('query wilders', () => {
+    it('returns the list of wilders', async () => {
+      await Wilder.create({ firstName: 'Prune', lastName: 'Banane' }).save();
+      await Wilder.create({ firstName: 'laure', lastName: 'Laurette' }).save();
+      const response = await query({
+        query: `
+        {
+          wilders {
+            firstName
+            lastName
+          }
+        }`,
+      });
+      expect(response.data).toEqual({
+        wilders: [
+          { firstName: 'Prune', lastName: 'Banane' },
+          { firstName: 'laure', lastName: 'Laurette' },
+        ],
+      });
+    });
+  });
 });
