@@ -55,9 +55,18 @@ describe('Apollo server', () => {
   });
 
   describe('query wilders', () => {
-    it('returns the list of wilders', async () => {
-      await Wilder.create({ firstName: 'Prune', lastName: 'Banane' }).save();
-      await Wilder.create({ firstName: 'laure', lastName: 'Laurette' }).save();
+    it('returns all wilders', async () => {
+      const wilder1 = Wilder.create({
+        firstName: 'Laure',
+        lastName: 'Pinson',
+      });
+      await wilder1.save();
+      const wilder2 = Wilder.create({
+        firstName: 'Pierre',
+        lastName: 'Corbeau',
+      });
+      await wilder2.save();
+
       const response = await query({
         query: `
         {
@@ -65,12 +74,20 @@ describe('Apollo server', () => {
             firstName
             lastName
           }
-        }`,
+        }
+      `,
       });
+
       expect(response.data).toEqual({
         wilders: [
-          { firstName: 'Prune', lastName: 'Banane' },
-          { firstName: 'laure', lastName: 'Laurette' },
+          {
+            firstName: 'Laure',
+            lastName: 'Pinson',
+          },
+          {
+            firstName: 'Pierre',
+            lastName: 'Corbeau',
+          },
         ],
       });
     });
