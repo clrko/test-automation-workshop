@@ -21,29 +21,23 @@ describe('getDisplayName', () => {
         expect(getDisplayName('Lucie', 'Laforêt', 'Paris')).toEqual(
           '[PAR] Lucie Laforêt'
         );
+        expect(getDisplayName('Lucie', 'Laforêt', 'Strasbourg')).toEqual(
+          '[SXB] Lucie Laforêt'
+        );
       });
     });
   });
 
   describe('when passed WORK_AND_STUDY as training type', () => {
-    describe('when not passed city', () => {
-      it('returns wns label and full name', () => {
-        expect(
-          getDisplayName('Lucie', 'Laforêt', '', TrainingType.WORK_AND_STUDY)
-        ).toEqual('[? - WnS] Lucie Laforêt');
-      });
-    });
-    describe('when passed city without code', () => {
-      it('returns city and wns label and full name', () => {
-        return expect(
-          getDisplayName(
-            'Lucie',
-            'Laforêt',
-            'Marseille',
-            TrainingType.WORK_AND_STUDY
-          )
-        ).toEqual('[Marseille - WnS] Lucie Laforêt');
-      });
+    it('returns WnS label and full name', () => {
+      expect(
+        getDisplayName(
+          'Lucie',
+          'Laforêt',
+          undefined,
+          TrainingType.WORK_AND_STUDY
+        )
+      ).toEqual('[? - WnS] Lucie Laforêt');
     });
   });
 });
