@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import CreateWilderForm from './CreateWilderForm';
 
 describe('CreateWilderForm', () => {
@@ -16,12 +16,26 @@ describe('CreateWilderForm', () => {
   });
 
   describe('when button to show form is clicked', () => {
-    it('renders form', () => {});
+    beforeEach(() => {
+      render(<CreateWilderForm />);
+      fireEvent.click(screen.getByRole('button'));
+    });
 
-    it('renders button to hide form', () => {});
+    it('renders form', () => {
+      expect(screen.queryByRole('form')).toBeInTheDocument();
+    });
+
+    it('renders button to hide form', () => {
+      expect(screen.getByRole('button')).toHaveTextContent(
+        'Cacher le formulaire'
+      );
+    });
 
     describe('when button to hide form is clicked', () => {
-      it('hides form', () => {});
+      it('hides form', () => {
+        fireEvent.click(screen.getByRole('button'));
+        expect(screen.queryByRole('form')).not.toBeInTheDocument();
+      });
     });
   });
 });
