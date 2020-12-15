@@ -16,16 +16,11 @@ describe('CreateWilderForm', () => {
   });
 
   describe('when button to show form is clicked', () => {
-    beforeEach(() => {
+    it('renders form and button to hide form', () => {
       render(<CreateWilderForm />);
-      fireEvent.click(screen.getByRole('button'));
-    });
+      fireEvent.click(screen.getByText('Montrer le formulaire'));
 
-    it('renders form', () => {
       expect(screen.queryByRole('form')).toBeInTheDocument();
-    });
-
-    it('renders button to hide form', () => {
       expect(screen.getByRole('button')).toHaveTextContent(
         'Cacher le formulaire'
       );
@@ -33,7 +28,10 @@ describe('CreateWilderForm', () => {
 
     describe('when button to hide form is clicked', () => {
       it('hides form', () => {
-        fireEvent.click(screen.getByRole('button'));
+        render(<CreateWilderForm />);
+        fireEvent.click(screen.getByText('Montrer le formulaire'));
+        fireEvent.click(screen.getByText('Cacher le formulaire'));
+
         expect(screen.queryByRole('form')).not.toBeInTheDocument();
       });
     });
