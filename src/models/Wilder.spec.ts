@@ -21,6 +21,9 @@ describe('getDisplayName', () => {
         expect(getDisplayName('Lucie', 'Laforêt', 'Paris')).toEqual(
           '[PAR] Lucie Laforêt'
         );
+        expect(getDisplayName('Lucie', 'Laforêt', 'Strasbourg')).toEqual(
+          '[SXB] Lucie Laforêt'
+        );
       });
     });
   });
